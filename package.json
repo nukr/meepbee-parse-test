@@ -1,8 +1,8 @@
 {
-  "name": "simple-es6-koa-seed",
+  "name": "meepbee-parse-test",
   "version": "0.0.1",
-  "description": "simple es6 seed",
-  "main": "index.js",
+  "description": "meepbee parse test",
+  "main": ".server-build/index.js",
   "dependencies": {
     "koa": "^0.14.0",
     "koa-parse-restapi": "^0.0.1",
@@ -19,6 +19,8 @@
     "webpack": "^1.4.15"
   },
   "scripts": {
+    "start": "gulp",
+    "build": "gulp build",
     "test": "gulp test"
   },
   "keywords": [

@@ -15,28 +15,28 @@ app.get('/', function*() {
 });
 
 app.get('/products', function*() {
-    var products =
+    let products =
         yield meepbee.classes('Products').getAll();
 
     this.body = products.body;
 })
 
 app.get('/products/:productId', function *() {
-    var productId = this.params.productId;
-    var product = yield meepbee.classes('Products').get(productId);
+    let productId = this.params.productId;
+    let product = yield meepbee.classes('Products').get(productId);
     this.body = product.body;
 })
 
 app.get('/orders', function*() {
-    var orders =
+    let orders =
         yield meepbee.classes('Orders').getAll();
 
     this.body = orders.body
 })
 
 app.get('/orders/:orderId', function *() {
-    var orderId = this.params.orderId;
-    var order = yield meepbee.classes('Orders').get(orderId);
+    let orderId = this.params.orderId;
+    let order = yield meepbee.classes('Orders').get(orderId);
     this.body = order.body;
 })
 

@@ -1,2 +1,2 @@
-Simple ES6 KOA seed
+meepbee parse test
 ===================
