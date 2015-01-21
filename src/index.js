@@ -1,7 +1,7 @@
 const koa = require('koa');
 const router = require('koa-router');
 const Parse = require('koa-parse-restapi');
-const meepbee = new Parse('DHPbawPXsk9VM697XtD0UNuYAuaxuxc8tEXoIquY', 'RtmDHDn6h1ehzn9sclbyky5IeWa6Sw5aOJTVKYTt')
+const meepbee = new Parse(appId, restApiKey)
 
 
 
