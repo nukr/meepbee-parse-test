@@ -10,7 +10,7 @@ var paths = {
   serverBuild: '.server-built'
 }
 
-gulp.task('default', ['watch', 'server:spawn']);
+gulp.task('default', ['6to5', 'watch', 'server:spawn']);
 
 gulp.task('watch', function() {
   gulp.watch('./src/index.js', ['build'])
