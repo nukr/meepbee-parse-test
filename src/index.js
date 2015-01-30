@@ -7,39 +7,15 @@ const meepbee = new Parse(config.appId, config.restApiKey);
 const app = koa();
 let port = process.env.port || 5000;
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 app.use(router(app));
 
 app.get('/', function*() {
   this.body = 'hi';
 });
-
-app.get('/products', function*() {
-  let products =
-    yield meepbee.getObjects('Products');
-
-  this.body = products.body;
-})
-
-app.get('/products/:productId', function*() {
-  let productId = this.params.productId;
-  let product =
-    yield meepbee.getObject('Products', productId);
-  this.body = product.body;
-})
-
-app.get('/orders', function*() {
-  let orders =
-    yield meepbee.getObjects('Orders');
-
-  this.body = orders.body
-})
-
-app.get('/orders/:orderId', function*() {
-  let orderId = this.params.orderId;
-  let order =
-    yield meepbee.getObject('Orders', orderId);
-  this.body = order.body;
-})
 
 app.get('/login', function*() {
   let user =
@@ -52,12 +28,6 @@ app.get('/users', function*() {
     yield meepbee.getUsers();
   this.body = users.body;
 })
-
-app.get('/comments', function*() {
-  let orders =
-    yield meepbee.getObjects('Comments');
-  this.body = orders.body
-});
 
 app.post('/roles', function*() {
   let roles =
@@ -102,6 +72,19 @@ app.put('/roles/:id', function *() {
   this.body = role.body;
 });
 
+app.get('/:table', function*() {
+  let objectName = capitalizeFirstLetter(this.params.table);
+  let objects =
+    yield meepbee.getObjects(objectName);
+  this.body = objects.body
+});
+
+app.get('/:table/:id', function*() {
+  let objectName = capitalizeFirstLetter(this.params.table);
+  let product =
+    yield meepbee.getObject(objectName, this.params.id);
+  this.body = product.body;
+});
 
 app.listen(port);
 console.log('server start on port %d', port);
