@@ -13,7 +13,7 @@ var paths = {
 gulp.task('default', ['6to5', 'watch', 'server:spawn']);
 
 gulp.task('watch', function() {
-  gulp.watch('./src/index.js', ['build'])
+  gulp.watch('./src/*.js', ['build'])
   gulp.watch('./.server-built/index.js', ['server:restart']);
 });
 

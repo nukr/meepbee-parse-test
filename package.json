@@ -4,6 +4,7 @@
   "description": "meepbee parse test",
   "main": ".server-build/index.js",
   "dependencies": {
+    "jsonwebtoken": "^3.2.2",
     "koa": "^0.14.0",
     "koa-parse-restapi": "^0.0.1",
     "koa-router": "^3.8.0"
