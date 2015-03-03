@@ -1,4 +1,4 @@
-const Parse = require('../../koa-parse-restapi');
+const Parse = require('koa-parse-restapi');
 const config = require('./config');
 const Router = require('koa-router');
 const meepbee = new Parse(config.appId, config.restApiKey);
