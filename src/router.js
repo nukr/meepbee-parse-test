@@ -1,53 +1,59 @@
-const Parse = require('koa-parse-restapi');
-const config = require('./config');
-const Router = require('koa-router');
+const Parse = require("../../koa-parse-restapi");
+const config = require("./config");
+const Router = require("koa-router");
 const meepbee = new Parse(config.appId, config.restApiKey);
 
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 
 let capitalizeFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
-}
+};
 
 let router = new Router();
 
-router.get('/', function* () {
-  this.body = 'hi';
+router.get("/", function*() {
+  this.body = "hi";
 });
 
-router.get('/login', function*() {
+router.get("/login", function*() {
   let user =
-    yield meepbee.loginUser('nukr', 'akgeto0g');
+    yield meepbee.loginUser("nukr", "akgeto0g");
   let sessionToken = JSON.parse(user.body).sessionToken;
-  const token = jwt.sign({ sessionToken: sessionToken}, 'secret', {algorithm: 'HS512'});
+  const token = jwt.sign({
+    sessionToken: sessionToken
+  }, "secret", {
+    algorithm: "HS512"
+  });
   this.body = token;
 });
 
-router.get('/verify', function* () {
+//router.get("/verify", function* () {
 
-  let token = this.req.headers["x-meepbee-token"];
+//let token = this.req.headers["x-meepbee-token"];
 
-  let decoded = yield function () {
-    return new Promise(function (resolve, reject) {
-      jwt.verify(token, 'secret', function (err, decoded) {
-        resolve(decoded)
-      });
-    });
-  }
+//let decoded = yield function () {
+//return new Promise(function (resolve, reject) {
+//jwt.verify(token, "secret", function (err, decoded) {
+//if (err) {
+//throw new Error(err);
+//}
+//resolve(decoded);
+//});
+//});
+//};
 
-  let meepbee = new Parse(config.appid, config.restApiKey, decoded.sessionToken)
-  let user = yield meepbee.getCurrentUser();
-  this.body = user;
-});
+//let meepbee = new Parse(config.appid, config.restApiKey, decoded.sessionToken);
+//let user = yield meepbee.getCurrentUser();
+//this.body = user;
+//});
 
-router.get('/users', function*() {
-  let users =
+router.get("/users", function*() {
+  this.body =
     yield meepbee.getUsers();
-  this.body = users.body;
 });
 
-router.post('/roles', function*() {
+router.post("/roles", function*() {
   let roles =
     yield meepbee.createRole({
       "name": "tester",
@@ -57,28 +63,28 @@ router.post('/roles', function*() {
         }
       }
     });
-  this.body = roles.body
+  this.body = roles.body;
 });
 
-router.get('/roles/:id', function *() {
+router.get("/roles/:id", function*() {
   let role =
-    yield meepbee.getRole(this.params.id)
+    yield meepbee.getRole(this.params.id);
   this.body = role.body;
 });
 
-router.get('/roles', function*() {
+router.get("/roles", function*() {
   let roles =
     yield meepbee.getRoles();
   this.body = roles.body;
 });
 
-router.delete('/roles/:id', function *() {
+router.delete("/roles/:id", function*() {
   let role =
-    yield meepbee.deleteRole(this.params.id)
+    yield meepbee.deleteRole(this.params.id);
   this.body = role.body;
 });
 
-router.put('/roles/:id', function *() {
+router.put("/roles/:id", function*() {
   let role =
     yield meepbee.updateRole(this.params.id, {
       "ACL": {
@@ -90,18 +96,19 @@ router.put('/roles/:id', function *() {
   this.body = role.body;
 });
 
-router.get('/:table', function*() {
+router.get("/:table", function*() {
   let objectName = capitalizeFirstLetter(this.params.table);
   let objects =
     yield meepbee.getObjects(objectName);
-  this.body = objects.body
+  this.body = objects;
 });
 
-router.get('/:table/:id', function*() {
+router.get("/:table/:id", function*() {
   let objectName = capitalizeFirstLetter(this.params.table);
-  let product =
+  let object =
     yield meepbee.getObject(objectName, this.params.id);
-  this.body = product.body;
+  this.body = object;
 });
 
 module.exports = router;
+

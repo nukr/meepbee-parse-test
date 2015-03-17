@@ -6,6 +6,7 @@
   "dependencies": {
     "jsonwebtoken": "^3.2.2",
     "koa": "^0.14.0",
+    "koa-favicon": "^1.2.0",
     "koa-parse-restapi": "^0.0.4",
     "koa-router": "^3.8.0"
   },
