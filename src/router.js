@@ -19,7 +19,9 @@ router.get("/", function*() {
 router.get("/login", function*() {
   let user =
     yield meepbee.loginUser("nukr", "akgeto0g");
-  let sessionToken = JSON.parse(user.body).sessionToken;
+
+  let sessionToken = user.body.sessionToken;
+
   const token = jwt.sign({
     sessionToken: sessionToken
   }, "secret", {
