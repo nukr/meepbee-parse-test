@@ -50,7 +50,7 @@ router.get("/login", function*() {
 
 router.get("/users", function*() {
   this.body =
-    yield meepbee.getUsers();
+    ( yield meepbee.getUsers() ).body;
 });
 
 router.post("/roles", function*() {
@@ -100,14 +100,14 @@ router.get("/:table", function*() {
   let objectName = capitalizeFirstLetter(this.params.table);
   let objects =
     yield meepbee.getObjects(objectName);
-  this.body = objects;
+  this.body = objects.body;
 });
 
 router.get("/:table/:id", function*() {
   let objectName = capitalizeFirstLetter(this.params.table);
   let object =
     yield meepbee.getObject(objectName, this.params.id);
-  this.body = object;
+  this.body = object.body;
 });
 
 module.exports = router;
